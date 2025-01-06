@@ -7,6 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">               
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"></script>
     <style>
         body {
             font-family: Outfit;
@@ -161,7 +162,9 @@
         <div class="error" id="errorMessage"></div>
         <div class="result" id="result">
             <p>Your shortened URL:</p>
-            <p class="shortened-url" id="shortenedUrl"></p>
+            <p class="shortened-url">
+                <a id="shortenedUrl" href="" target="_blank" rel="noopener noreferrer"></a>
+            </p>        
         </div>
     </div>
 
@@ -288,8 +291,10 @@
 
                 const data = await response.json();
                 const shortUrl = `https://short.leilas.dev/${data.short_code}`;
+                const shortenedUrlElement = document.getElementById('shortenedUrl');
                 
-                document.getElementById('shortenedUrl').textContent = shortUrl;
+                shortenedUrlElement.href = shortUrl;
+                shortenedUrlElement.textContent = shortUrl;                
                 result.classList.add('visible');
                 errorMessage.style.display = 'none';
             } catch (error) {
