@@ -54,6 +54,11 @@ def add_url():
     
     original_url = data['original_url']
 
+    formatted_url = original_url
+    
+    if not original_url.startswith(('http://', 'https://')):
+        formatted_url= 'http://' + original_url
+
     def generate_shortcode(length=5):
         return ''.join(random.choices(string.ascii_letters + string.digits, k=length))
     
@@ -63,7 +68,7 @@ def add_url():
 
     while True:
         try:
-            c.execute('INSERT INTO urls (original_url, short_code) VALUES (?, ?)', (original_url, short_code))
+            c.execute('INSERT INTO urls (original_url, short_code) VALUES (?, ?)', (formatted_url, short_code))
             conn.commit()
             break
         except sqlite3.IntegrityError:
