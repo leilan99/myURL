@@ -37,7 +37,7 @@ def get_original(short_code):
     else:
         return None
 
-@app.route("/<short_code>")
+@app.route("/api/<short_code>")
 def redirect_short_url(short_code):
     original_url = get_original(short_code)
     if original_url:
@@ -45,7 +45,7 @@ def redirect_short_url(short_code):
     else:
         return jsonify({"error": "Original URL not found."}), 404
     
-@app.route("/add", methods=['POST'])
+@app.route("/api/add", methods=['POST'])
 def add_url():
     data = request.get_json()
 
@@ -74,4 +74,4 @@ def add_url():
 
 if __name__ == '__main__':
     setup_database()
-    app.run(debug=True, port=6600)    
+    app.run(debug=True, port=9712)    
